@@ -40,9 +40,15 @@ public class BoardSubsystem extends Subsystem {
     
     public double normalizedError(double setpoint){
     	double error = error(setpoint);
-    	if(error > 180) return error -= 180;
-    	else if(error < -180 ) return error += 180;
-    	else return error;
+    	if(error > 180) {
+    		return error -= 360;
+    	}
+    	else if(error < -180 ) {
+    		return error += 360;
+    	}
+    	else {
+    		return error;
+    	}
     	}
     
     public void updateStatus(){
