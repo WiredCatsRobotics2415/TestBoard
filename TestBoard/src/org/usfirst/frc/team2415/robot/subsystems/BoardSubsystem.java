@@ -27,16 +27,28 @@ public class BoardSubsystem extends Subsystem {
     }
     
     public double getPosition(){
-    	return Math.abs((talon.getPosition()*360/4096) % 360);
+    	return Math.abs((talon.getPosition()*360/4096)) % 360 - 180;
     }
     
     public double getPulsePosition(){
-    	return Math.abs((talon.getPulseWidthPosition()*360/4096) % 360);
+    	return Math.abs((talon.getPulseWidthPosition()*360/4096)) % 360 - 180;
     }
+    
+    public double error(double setpoint){
+    	return setpoint - getPulsePosition();
+    }
+    
+    public double normalizedError(double setpoint){
+    	double error = error(setpoint);
+    	if(error > 180) return error -= 180;
+    	else if(error < -180 ) return error += 180;
+    	else return error;
+    	}
     
     public void updateStatus(){
     	SmartDashboard.putNumber("Absolute Encoder Value", getPulsePosition());
     	SmartDashboard.putNumber("Relative Encoder Value", getPosition());
+    	SmartDashboard.putNumber("Setpoint = 45 degrees, Error: ", error(90));
     }
 }
 
