@@ -7,19 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MotorCommand extends Command {
+public class UltrasonicCommand extends Command {
 
-	double vel;
-	
-    public MotorCommand() {
+    public UltrasonicCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.boardSubsystem);
-    }
-    
-    public MotorCommand(double vel){
-    	requires(Robot.boardSubsystem);
-    	this.vel = vel;
     }
 
     // Called just before this Command runs the first time
@@ -29,7 +22,9 @@ public class MotorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.boardSubsystem.setMotor(vel);
+    	if (Robot.boardSubsystem.ultrasonicRange() == 0){
+    		
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

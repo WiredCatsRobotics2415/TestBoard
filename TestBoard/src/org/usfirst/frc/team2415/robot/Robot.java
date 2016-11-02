@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 
 public class Robot extends IterativeRobot {
-	BoardSubsystem boardSubsystem;
+	public static BoardSubsystem boardSubsystem;
 
     /**
      * This function is run when the robot is first started up and should be

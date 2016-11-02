@@ -3,6 +3,11 @@ package org.usfirst.frc.team2415.robot.subsystems;
 import org.usfirst.frc.team2415.robot.commands.MotorCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,15 +20,27 @@ public class BoardSubsystem extends Subsystem {
     // here. Call these from Commands.
 
 	private CANTalon talon;
+	private DigitalInput button;
+	private Solenoid solenoid;
+	private Ultrasonic ultrasonic;
 	
 	public BoardSubsystem(){
 		talon = new CANTalon(1);
+		ultrasonic = new Ultrasonic(0,0);
+		
+		talon.changeControlMode(TalonControlMode.Position);
+		talon.set(0);
+		talon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		talon.setPID(0.1, 0, 0);
+		talon.enable();
+		talon.clearStickyFaults();
+		ultrasonic.setAutomaticMode(true);
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-//    	setDefaultCommand(new MotorCommand());
+    	setDefaultCommand(new MotorCommand());
     }
     
     public double getPosition(){
@@ -38,5 +55,15 @@ public class BoardSubsystem extends Subsystem {
     	SmartDashboard.putNumber("Absolute Encoder Value", getPulsePosition());
     	SmartDashboard.putNumber("Relative Encoder Value", getPosition());
     }
+    
+    public void setMotor(double value){
+    	talon.set(value);
+    }
+    
+    public double ultrasonicRange() {
+    	double range = ultrasonic.getRangeMM();
+    	return range;
+    }
+    
 }
 
