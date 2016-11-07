@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2415.robot.subsystems;
 
 import org.usfirst.frc.team2415.robot.commands.MotorCommand;
+import org.usfirst.frc.team2415.robot.commands.UltrasonicCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -20,8 +21,6 @@ public class BoardSubsystem extends Subsystem {
     // here. Call these from Commands.
 
 	private CANTalon talon;
-	private DigitalInput button;
-	private Solenoid solenoid;
 	private Ultrasonic ultrasonic;
 	
 	public BoardSubsystem(){
@@ -34,13 +33,14 @@ public class BoardSubsystem extends Subsystem {
 		talon.setPID(0.1, 0, 0);
 		talon.enable();
 		talon.clearStickyFaults();
+		
 		ultrasonic.setAutomaticMode(true);
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new MotorCommand());
+    	setDefaultCommand(new UltrasonicCommand());
     }
     
     public double getPosition(){
@@ -60,9 +60,12 @@ public class BoardSubsystem extends Subsystem {
     	talon.set(value);
     }
     
+    public boolean validRange() {
+    	return ultrasonic.isRangeValid();
+    }
+    
     public double ultrasonicRange() {
-    	double range = ultrasonic.getRangeMM();
-    	return range;
+    	return ultrasonic.getRangeMM();
     }
     
 }

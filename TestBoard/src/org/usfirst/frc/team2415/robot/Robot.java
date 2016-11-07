@@ -2,6 +2,7 @@
 package org.usfirst.frc.team2415.robot;
 
 import org.usfirst.frc.team2415.robot.subsystems.BoardSubsystem;
+import org.usfirst.frc.team2415.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Robot extends IterativeRobot {
 	public static BoardSubsystem boardSubsystem;
+	public static PistonSubsystem pistonSubsystem;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -17,6 +19,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
     	boardSubsystem = new BoardSubsystem();
+    	pistonSubsystem = new PistonSubsystem();
     }
 	
 	/**
@@ -31,6 +34,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		boardSubsystem.updateStatus();
+		
 	}
 
 	/**
