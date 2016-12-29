@@ -1,25 +1,42 @@
 
 package org.usfirst.frc.team2415.robot;
 
+import org.usfirst.frc.team2415.robot.commands.FiveCommand;
+import org.usfirst.frc.team2415.robot.commands.NegFiveCommand;
+import org.usfirst.frc.team2415.robot.commands.ZeroCommand;
 import org.usfirst.frc.team2415.robot.subsystems.BoardSubsystem;
 import org.usfirst.frc.team2415.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-
+/**
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the IterativeRobot
+ * documentation. If you change the name of this class or the package after
+ * creating this project, you must also update the manifest file in the resource
+ * directory.
+ */
 public class Robot extends IterativeRobot {
+
 	public static BoardSubsystem boardSubsystem;
 	public static PistonSubsystem pistonSubsystem;
+	
+	public static WiredCatJoystick operator;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	boardSubsystem = new BoardSubsystem();
-    	pistonSubsystem = new PistonSubsystem();
+		boardSubsystem = new BoardSubsystem();
+		pistonSubsystem = new PistonSubsystem();
+		
+		operator = new WiredCatJoystick(1);
+		
+		operator.buttons[3].whileHeld(new ZeroCommand());
+		operator.buttons[2].whileHeld(new FiveCommand());
+		operator.buttons[5].whileHeld(new NegFiveCommand());
     }
 	
 	/**
@@ -32,8 +49,7 @@ public class Robot extends IterativeRobot {
     }
 	
 	public void disabledPeriodic() {
-		boardSubsystem.updateStatus();
-		
+		Scheduler.getInstance().run();
 	}
 
 	/**
@@ -46,34 +62,44 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-       
+      
+        
+		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+		switch(autoSelected) {
+		case "My Auto":
+			autonomousCommand = new MyAutoCommand();
+			break;
+		case "Default Auto":
+		default:
+			autonomousCommand = new ExampleCommand();
+			break;
+		} */
+  
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	boardSubsystem.updateStatus();
+    	Scheduler.getInstance().run();
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-       
+    	
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	boardSubsystem.updateStatus();
+    	Scheduler.getInstance().run();
+    	Robot.boardSubsystem.updateStatus();
     }
     
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+
     }
 }

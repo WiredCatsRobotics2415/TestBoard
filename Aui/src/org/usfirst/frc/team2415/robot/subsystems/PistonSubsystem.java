@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2415.robot.subsystems;
 
-import org.usfirst.frc.team2415.robot.RobotMap;
 import org.usfirst.frc.team2415.robot.commands.PistonCommand;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,8 +16,8 @@ public class PistonSubsystem extends Subsystem {
 	private Solenoid solenoid2;
 
 	public PistonSubsystem(){
-		solenoid1 = new Solenoid(RobotMap.PCM_ID, 0);
-		solenoid2 = new Solenoid(RobotMap.PCM_ID, 1);
+		solenoid1 = new Solenoid(20, 0);
+		solenoid2 = new Solenoid(20, 1);
 		button = new DigitalInput(1);
 		
 	}

@@ -6,7 +6,6 @@ import org.usfirst.frc.team2415.robot.commands.UltrasonicCommand;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,11 +20,11 @@ public class BoardSubsystem extends Subsystem {
     // here. Call these from Commands.
 
 	private CANTalon talon;
-	private Ultrasonic ultrasonic;
+//	private Ultrasonic ultrasonic;
 	
 	public BoardSubsystem(){
 		talon = new CANTalon(1);
-		ultrasonic = new Ultrasonic(0,0);
+//		ultrasonic = new Ultrasonic(0,0);
 		
 		talon.changeControlMode(TalonControlMode.Position);
 		talon.set(0);
@@ -34,7 +33,7 @@ public class BoardSubsystem extends Subsystem {
 		talon.enable();
 		talon.clearStickyFaults();
 		
-		ultrasonic.setAutomaticMode(true);
+//		ultrasonic.setAutomaticMode(true);
 	}
 	
     public void initDefaultCommand() {
@@ -60,13 +59,13 @@ public class BoardSubsystem extends Subsystem {
     	talon.set(value);
     }
     
-    public boolean validRange() {
-    	return ultrasonic.isRangeValid();
-    }
-    
-    public double ultrasonicRange() {
-    	return ultrasonic.getRangeMM();
-    }
+//    public boolean validRange() {
+//    	return ultrasonic.isRangeValid();
+//    }
+//    
+//    public double ultrasonicRange() {
+//    	return ultrasonic.getRangeMM();
+//    }
     
 }
 
