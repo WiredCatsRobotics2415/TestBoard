@@ -2,11 +2,9 @@ package org.usfirst.frc.team2415.robot.subsystems;
 
 import org.usfirst.frc.team2415.robot.Robot;
 import org.usfirst.frc.team2415.robot.commands.MotorCommand;
+import org.usfirst.frc.team2415.robot.utilities.PixyCam;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,19 +17,19 @@ public class BoardSubsystem extends Subsystem {
     // here. Call these from Commands.
 
 	public CANTalon talon;
+	public PixyCam pixy;
 //	private Ultrasonic ultrasonic;
 	
 	public BoardSubsystem() {
 		talon = new CANTalon(2);
+		pixy = new PixyCam(0,0);
 //		ultrasonic = new Ultrasonic(0,0);
 //		
-//		talon.changeControlMode(TalonControlMode.Position);
-//		talon.set(0);
-//		talon.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-//		talon.setPID(0.1, 0, 0);
 		talon.enable();
 		talon.configMaxOutputVoltage(0.5);
-//		talon.clearStickyFaults();
+
+		pixy.setGoal(1.5);
+		
 //		
 //		ultrasonic.setAutomaticMode(true);
 	}
