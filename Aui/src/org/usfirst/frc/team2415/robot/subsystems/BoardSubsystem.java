@@ -4,7 +4,8 @@ import org.usfirst.frc.team2415.robot.Robot;
 import org.usfirst.frc.team2415.robot.commands.MotorCommand;
 import org.usfirst.frc.team2415.robot.utilities.PixyCam;
 
-import edu.wpi.first.wpilibj.CANTalon;
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
