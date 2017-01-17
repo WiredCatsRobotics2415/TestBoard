@@ -3,12 +3,15 @@ package org.usfirst.frc.team2415.robot;
 
 import org.usfirst.frc.team2415.robot.commands.FiveCommand;
 import org.usfirst.frc.team2415.robot.commands.NegFiveCommand;
+import org.usfirst.frc.team2415.robot.commands.PixyBangCommand;
 import org.usfirst.frc.team2415.robot.commands.ZeroCommand;
 import org.usfirst.frc.team2415.robot.subsystems.BoardSubsystem;
 import org.usfirst.frc.team2415.robot.subsystems.PistonSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,8 +24,11 @@ public class Robot extends IterativeRobot {
 
 	public static BoardSubsystem boardSubsystem;
 	public static PistonSubsystem pistonSubsystem;
+	public static Command autoCommand;
+	
 	
 	public static WiredCatJoystick operator;
+
 
     /**
      * This function is run when the robot is first started up and should be
@@ -37,6 +43,8 @@ public class Robot extends IterativeRobot {
 		operator.buttons[3].whileHeld(new ZeroCommand());
 		operator.buttons[2].whileHeld(new FiveCommand());
 		operator.buttons[5].whileHeld(new NegFiveCommand());
+		
+		SmartDashboard.putData(Scheduler.getInstance());
     }
 	
 	/**
@@ -63,7 +71,9 @@ public class Robot extends IterativeRobot {
 	 */
     public void autonomousInit() {
       
-
+    	autoCommand = new PixyBangCommand();
+    	autoCommand.start();
+    	
   
     }
 
@@ -72,6 +82,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
     	Scheduler.getInstance().run();
+    	
     }
 
     public void teleopInit() {

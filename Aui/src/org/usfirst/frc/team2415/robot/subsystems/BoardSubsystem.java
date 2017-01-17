@@ -29,7 +29,7 @@ public class BoardSubsystem extends Subsystem {
 		talon.enable();
 		talon.configMaxOutputVoltage(0.5);
 
-		pixy.setGoal(1.5);
+		pixy.setGoal(2);
 		
 //		
 //		ultrasonic.setAutomaticMode(true);
